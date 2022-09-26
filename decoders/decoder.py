@@ -146,9 +146,9 @@ class DecoderA(tf.keras.Model):
 
         # Input normalization ("codeword-wise"):
         if self.trainable:
-            reduce_mean = tf.reduce_mean(tf.abs(llrs), axis=-1)
+            reduce_max = tf.reduce_max(tf.abs(llrs), axis=-1)
             normalized_llrs = llrs / tf.reshape(
-                reduce_mean, [tf.shape(reduce_mean)[0], 1]
+                reduce_max, [tf.shape(reduce_max)[0], 1]
             )
         else:
             normalized_llrs = llrs
@@ -167,10 +167,10 @@ class DecoderA(tf.keras.Model):
         # Remove added broadcast dimension
         # Normalization (because skip/residual connections?)
         if self.trainable:
-            reduce_mean_out = tf.reduce_mean(tf.abs(outputs), axis=-1)
+            reduce_max_out = tf.reduce_max(tf.abs(outputs), axis=-1)
             normalized_outputs = outputs / tf.reshape(
-                reduce_mean_out,
-                [tf.shape(reduce_mean_out)[0], tf.shape(reduce_mean_out)[1], 1],
+                reduce_max_out,
+                [tf.shape(reduce_max_out)[0], tf.shape(reduce_max_out)[1], 1],
             )
         else:
             normalized_outputs = outputs
