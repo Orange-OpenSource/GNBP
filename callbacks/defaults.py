@@ -84,9 +84,9 @@ def default_configuration_tensorboard(log_dir):
     return {
         "log_dir": log_dir,
         "update_freq": "epoch",
-        "histogram_freq": 10,
+        "histogram_freq": 1,
         "write_graph": False,
-        "embeddings_freq": 10,
+        "embeddings_freq": 1,
         "profile_batch": 2,
     }
 
